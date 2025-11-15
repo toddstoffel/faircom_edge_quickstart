@@ -42,8 +42,6 @@ This will:
 Create a `docker-compose.yml`:
 
 ```yaml
-version: '3.8'
-
 services:
   faircom-edge:
     image: toddstoffel0810/faircom:latest
