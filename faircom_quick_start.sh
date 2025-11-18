@@ -63,14 +63,30 @@ show_logs() {
     docker logs -f "${CONTAINER_NAME}"
 }
 
+create_sample_data() {
+    echo "Creating sample data..."
+    echo ""
+    
+    # Check if container is running
+    if ! docker ps --format '{{.Names}}' | grep -q "^${CONTAINER_NAME}$"; then
+        echo "❌ Error: Container '${CONTAINER_NAME}' is not running."
+        echo "Please start the container first with: $0 start"
+        exit 1
+    fi
+    
+    # Run the Python script inside the container
+    docker exec -w /opt/faircom/server "${CONTAINER_NAME}" python3 /usr/local/bin/create_sample_data.py
+}
+
 show_usage() {
-    echo "Usage: $0 [start|stop|restart|logs]"
+    echo "Usage: $0 [start|stop|restart|logs|sample-data]"
     echo ""
     echo "Commands:"
-    echo "  start    - Start the FairCom Edge container"
-    echo "  stop     - Stop and remove the container"
-    echo "  restart  - Restart the container"
-    echo "  logs     - Show container logs (follow mode)"
+    echo "  start        - Start the FairCom Edge container"
+    echo "  stop         - Stop and remove the container"
+    echo "  restart      - Restart the container"
+    echo "  logs         - Show container logs (follow mode)"
+    echo "  sample-data  - Create sample database with demo data"
     echo ""
     echo "If no command is provided, 'start' is assumed."
 }
@@ -90,6 +106,9 @@ case "$CMD" in
         ;;
     logs)
         show_logs
+        ;;
+    sample-data)
+        create_sample_data
         ;;
     help|--help|-h)
         show_usage
