@@ -12,6 +12,14 @@ Minimal Docker image for FairCom Edge database (~350MB) configured for easy depl
 - ✅ Pre-configured services: HTTP, REST API, SQL, MQTT
 - ✅ Web-based management tools included
 
+## Prerequisites
+
+**Docker must be installed and running on your machine.**
+
+- Install Docker Desktop: [docker.com/get-started](https://www.docker.com/get-started)
+- Verify installation: `docker --version`
+- Ensure Docker daemon is running before proceeding
+
 ## Quick Start
 
 The easiest way to get started is with this one-liner:
